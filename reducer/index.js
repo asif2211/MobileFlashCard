@@ -1,18 +1,43 @@
-import {RECEIVE_DECKS,ADD_DECK} from '../action';
+import {RECEIVE_DECKS,ADD_DECK,CREATE_CARD} from '../action';
 
-export default function decks(state ={},action)
+export default function decklist(state ={},action)
 {
+    
     switch(action.type)
     {
         case RECEIVE_DECKS:
             return{
                 ...state,
-                ...action.decks
+                ...action.decklist
             }
         case ADD_DECK:
+            const {id,name} = action.data;
+            alert(id)
+            alert(name)
             return{
                 ...state,
-                ...action.deck
+                [id]:{
+                    id:id,
+                    name:name,
+                    cards:[]
+                }
             }
+        case CREATE_CARD :
+            const {deckId,question,answer} = action.cardInfo;
+
+            return{
+                ...state,
+                [deckId]:{
+                    ...state[deckId],
+                    cards:[
+                        ...state[deckId].cards,
+                        {question:question,answer:answer}
+                    ]
+                }
+            }
+        default :
+        return{
+            state
+        }
     }
 }

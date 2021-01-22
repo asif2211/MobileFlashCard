@@ -1,32 +1,31 @@
-import React from "react";
-import { View, TouchableOpacity,Text,StyleSheet } from "react-native";
-import { white ,purple} from "../utils/color";
+import React, { Children } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { white, purple, orange, lightPurp } from "../utils/color";
 
-export default function TextButton({ onPress, children }) {
+export default function TextButton({ onPress, title }) {
   return (
-    <View  style={styles.androidBtn}>
-      <TouchableOpacity onPress={onPress}>
-        <Text style={styles.submitBtnText}>{children}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+    <Text style={styles.appButtonText}>{title}</Text>
+  </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  
-  androidBtn:{
-    color:white,
-    fontSize:22,
-    borderRadius:2, 
-    padding:7,
-    height: 45,
-    backgroundColor:purple,
+  appButtonContainer: {
     
+    borderRadius: 5,
+    backgroundColor: purple,
+    margin: 10,
+    padding: 10,
+    width: 300,
+    justifyContent:'center',
   },
-  submitBtnText:{
-    color:white,
-    fontSize:22,
-    textAlign:'center'
-
-  },
+  appButtonText: {
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: "bold",
+    alignSelf: "center",
+    textTransform: "uppercase",
+    
+  }
 });

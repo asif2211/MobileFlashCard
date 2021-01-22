@@ -1,45 +1,43 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { white, gray } from "../utils/color";
-const DeckListView = ({ id, name, navigation, countCard }) => {
-  if (name !== "") {
-    return (
-      <TouchableOpacity style={styles.item} onPress={navigation}>
-        <Text key={id} style={styles.deckitle}>
-          {name}
-        </Text>
-        <View>
-          <Text style={styles.card}>{`${countCard} Cards`}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  } else {
-    return (
-      <TouchableOpacity style={styles.item}>
-        <Text>Data not found</Text>
-      </TouchableOpacity>
-    );
-  }
+const DeckListView = ({ id, name, navigation, countCard }) => 
+  {
+   
+      return (
+        <TouchableOpacity style={styles.item} onPress={navigation}>
+          
+          <Text key={id} style={styles.deckitle}>
+            {name}
+          </Text>
+        
+            <Text style={styles.card}>{`${countCard? countCard.length:0} Cards`}</Text>
+         
+        </TouchableOpacity>
+      );
+      
+    
+    
+    
+    
 };
 
 export default DeckListView;
 
 const styles = StyleSheet.create({
   item: {
-    backgroundColor: white,
-    borderRadius: 10,
+    
+    alignItems:'center',
+    justifyContent:'center',
     padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 30,
+    margin: 20,
     justifyContent: "center",
-    shadowRadius: 3,
-    shadowOpacity: 0.8,
-    shadowColor: "white",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
+    borderColor: "#ccc",
+    borderWidth: 1,
+    fontSize: 20,
+    width:300,
+    
+
   },
   deckitle: {
     fontSize: 22,

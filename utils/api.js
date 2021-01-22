@@ -5,28 +5,29 @@ export const FLASHCARD_STORAGE_KEY = "flashcards:decks";
 export const receiveDeckData = () => {
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY).then(results =>{
     const parsed = JSON.parse(results);    
-  
+    AsyncStorage.clear(parsed);
     return parsed
+    
+      
   }); 
   
 };
 
 export const storeDeckData = (deckvalue) => {
-  alert(deckvalue.id);
-  alert(deckvalue.name)
+  AsyncStorage.clear(deckvalue);
   return AsyncStorage.mergeItem(FLASHCARD_STORAGE_KEY,JSON.stringify([deckvalue.id,deckvalue])
+  
   );
 };
 
-export const storeCard = (id,card) => {
-
-
+export const storeCard = (deckId,card) => {
+ 
   return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY).then(results =>{
    const existingData = JSON.parse(results); 
-    existingData[id] = {
-      ...existingData[id],
+    existingData[deckId] = {
+      ...existingData[deckId],
       cards:[
-        ...existingData[id].cards,
+        ...existingData[deckId].cards,
         {question:card.question,asnwer:card.answer}
       ]
 

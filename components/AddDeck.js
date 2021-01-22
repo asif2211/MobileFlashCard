@@ -4,7 +4,7 @@ import {
   TextInput,
   Button,
   KeyboardAvoidingView,
-  StyleSheet,
+  StyleSheet,TouchableOpacity
 } from "react-native";
 
 import React, { Component } from "react";
@@ -14,6 +14,7 @@ import { add_Deck } from "../action";
 import {generateId} from '../utils/helper';
 import TextButton from '../components/TextButton'
 import { red } from "../utils/color";
+import Heading from "./Heading";
 class AddDeck extends Component {
   state = {
     input: "",
@@ -43,11 +44,12 @@ class AddDeck extends Component {
     const id = deckvalue.id;
     const name = deckvalue.name;
     this.props.dispatch(add_Deck(id,name));
+    
     storeDeckData(deckvalue);
     this.setState({
       input:''
     })
-    this.props.navigation.navigate("Home", {
+    this.props.navigation.navigate("DeckListDetail", {
       deckId: deckvalue.id,
       name: deckvalue.name
     });
@@ -58,8 +60,8 @@ class AddDeck extends Component {
   render() {
    
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <Text style={styles.heading}>add Deck</Text>
+      <KeyboardAvoidingView  style={styles.container}>
+        <Heading>add Deck</Heading>
         <TextInput
           style={styles.input}
           value={this.state.input}
@@ -67,7 +69,7 @@ class AddDeck extends Component {
           onChangeText={this.handleInput}
         />
         <Text style={styles.error}>{this.state.error}</Text>
-        <TextButton onPress={this.handleSubmitBtn}>Add Deck</TextButton>
+        <TextButton title="Add Deck"  onPress={this.handleSubmitBtn}/>
       </KeyboardAvoidingView>
     );
   }
@@ -88,7 +90,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     height: 40,
-    marginVertical: 20,
+    marginVertical: 10,
     padding: 5,
     margin: 5,
     justifyContent: "center",
@@ -100,7 +102,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     color:red,
-    margin:10,
-    padding:10,
-  }
+    margin:5,
+    padding:5,
+  },
+  
 });

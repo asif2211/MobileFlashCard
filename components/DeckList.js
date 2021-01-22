@@ -9,8 +9,11 @@ import {
 import { receiveDeckData } from "../utils/api";
 import { receiveDeck } from "../action";
 import { connect, Provider } from "react-redux";
-import { white, red } from "../utils/color";
+import { white, red, gray } from "../utils/color";
 import DeckListView from "../components/DeckListView";
+import TextButton from "./TextButton";
+import CenterText from "./CenterText";
+import Heading from "./Heading";
 class DeckList extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +21,7 @@ class DeckList extends Component {
       ready: false,
     };
   }
-  
+
   componentDidMount() {
     receiveDeckData()
       .then((decklist) => this.props.dispatch(receiveDeck(decklist)))
@@ -28,9 +31,8 @@ class DeckList extends Component {
   }
 
   render() {
-  
-
-    alert(JSON.stringify(this.props.decklist));
+   
+    // alert(JSON.stringify(Object.values(this.props.decklist)))
     if (!this.state.ready) {
       return (
         <View>
@@ -39,27 +41,26 @@ class DeckList extends Component {
       );
     } else {
       // alert(this.props.navigation.getParam&&this.props.navigation.getParam('name'))
+      alert(Object.values(this.props.decklist).length);
       return Object.values(this.props.decklist).length > 0 ? (
-        <View>
-          
+        <View style={styles.Maincontainer}>
           <FlatList
             data={Object.values(this.props.decklist)}
             renderItem={({ item }) => (
               <DeckListView
                 id={item.id}
                 name={item.name}
-                navigation={()=>this.props.navigation.navigate('AddCard',{id:item.id})}
-                countCard={item.card ? item.card.length : 0}
+                navigation={() => this.props.navigation.navigate("DeckListDetail",{deckId:item.id,name:item.name})}
+                
+                  countCard={item.cards}
               />
             )}
-            keyExtractor={(item, index) => item.name}
+            keyExtractor={(item, index) => item.id}
           />
-
-        
-        </View>
-      ) : (
-        <Text>Loading...</Text>
-      );
+            
+            </View>
+       
+      ) : (<Heading>Decks are empty yet! Pease Add Deck</Heading>)
     }
   }
 }
@@ -74,21 +75,20 @@ const mapStateToProps = (decklist) => {
 export default connect(mapStateToProps)(DeckList);
 
 const styles = StyleSheet.create({
-  item: {
+  Maincontainer:{
+    flex: 1,
     backgroundColor: white,
-    borderRadius: 10,
-    padding: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 30,
-    justifyContent: "center",
-    shadowRadius: 3,
-    shadowOpacity: 0.8,
-    shadowColor: "white",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
     alignItems: "center",
+    justifyContent: 'center'
   },
+
+  container: {
+    
+    flex: 1,
+    backgroundColor: white,
+    alignItems: "center"
+    
+
+  },
+  
 });

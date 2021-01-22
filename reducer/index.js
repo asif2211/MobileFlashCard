@@ -1,6 +1,6 @@
 import {RECEIVE_DECKS,ADD_DECK,CREATE_CARD} from '../action';
 
-export default function decklist(state ={},action)
+export default function decklist(state={} ,action)
 {
     
     switch(action.type)
@@ -12,8 +12,7 @@ export default function decklist(state ={},action)
             }
         case ADD_DECK:
             const {id,name} = action.data;
-            alert(id)
-            alert(name)
+            
             return{
                 ...state,
                 [id]:{
@@ -24,7 +23,7 @@ export default function decklist(state ={},action)
             }
         case CREATE_CARD :
             const {deckId,question,answer} = action.cardInfo;
-
+            
             return{
                 ...state,
                 [deckId]:{
@@ -35,9 +34,10 @@ export default function decklist(state ={},action)
                     ]
                 }
             }
-        default :
-        return{
-            state
-        }
+        // default :
+        // return{
+        //     state
+        // }
+        
     }
 }

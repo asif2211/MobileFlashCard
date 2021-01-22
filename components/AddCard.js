@@ -14,6 +14,8 @@ import { createCard } from "../action";
 import TextButton from "../components/TextButton";
 import { red } from "../utils/color";
 import { useRoute } from "@react-navigation/native";
+import CenterText from "./CenterText";
+import Heading from "./Heading";
 
 class AddCard extends Component {
   state = {
@@ -33,15 +35,16 @@ class AddCard extends Component {
     // {
     const {question,answer} = this.state;
     const {route} = this.props;
-    const id = route.params.id;
+    const deckId = route.params.deckId;
 
-    this.props.dispatch(createCard(id, question, answer));
-    storeCard(id, { question, answer });
+    this.props.dispatch(createCard(deckId, question, answer));
+    storeCard(deckId, { question, answer });
+
     this.setState({
       question: "",
       asnwer: "",
     });
-    this.props.navigation.navigate("Home");
+    this.props.navigation.navigate("DeckListDetail");
   };
 
   //for class  <View onPress={()=>this.props.navigation.navigate('DeckList')}>
@@ -49,7 +52,13 @@ class AddCard extends Component {
     
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <Text style={styles.heading}>Add Question</Text>
+        <Heading>
+          {this.props.route.params.name}
+        </Heading>
+        <Heading>
+           Add Card
+        </Heading>
+        
         <TextInput
           style={styles.input}
           value={this.state.question}
@@ -63,7 +72,7 @@ class AddCard extends Component {
           onChangeText={(answer) => this.setState({ answer })}
         />
         <Text style={styles.error}>{this.state.error}</Text>
-        <TextButton onPress={this.handleSubmitBtn}>Add Deck</TextButton>
+        <TextButton onPress={this.handleSubmitBtn} title="Add Deck"/>
       </KeyboardAvoidingView>
     );
   }
@@ -73,10 +82,10 @@ export default connect()(AddCard);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 50,
+    
   },
   heading: {
     fontSize: 20,
@@ -85,7 +94,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     height: 40,
-    marginVertical: 20,
+    marginVertical: 5,
     padding: 5,
     margin: 5,
     justifyContent: "center",

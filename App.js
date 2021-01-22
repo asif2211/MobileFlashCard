@@ -9,7 +9,13 @@ import { Provider } from 'react-redux';
 import reducer from './reducer'
 import {Ionicons,FontAwesome} from '@expo/vector-icons';
 import Navigation from './components/Navigation'
+import {LogBox } from "react-native";
+ 
+// Ignore log notification by message
+LogBox.ignoreLogs(['Warning: ...']);
 
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 export default function App() {
   return (
     <Provider store={createStore(reducer)}>

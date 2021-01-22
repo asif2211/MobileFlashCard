@@ -2,11 +2,11 @@ import React from "react";
 import { View, TouchableOpacity,Text,StyleSheet } from "react-native";
 import { white ,purple, gray} from "../utils/color";
 
-export default function Heading({ onPress, children }) {
+export default function Heading({ onPress, children,style }) {
   return (
     <View>
       
-        <Text style={styles.submitBtnText}>{children}</Text>
+        <Text style={[styles.submitBtnText,style]}>{children}</Text>
      
     </View>
   );

@@ -30,6 +30,7 @@ class AddDeck extends Component {
       input
     }));
   };
+  
   handleSubmitBtn = () => {
     if(this.state.input ==="")
     {
@@ -68,8 +69,8 @@ class AddDeck extends Component {
           placeholder="Add Quez"
           onChangeText={this.handleInput}
         />
-        <Text style={styles.error}>{this.state.error}</Text>
         <TextButton title="Add Deck"  onPress={this.handleSubmitBtn}/>
+        <Text style={styles.error}>{this.state.error}</Text>
       </KeyboardAvoidingView>
     );
   }

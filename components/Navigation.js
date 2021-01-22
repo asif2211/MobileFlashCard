@@ -64,6 +64,7 @@ function SettingsStackScreen() {
       <SettingsStack.Screen name="DeckListDetail" component={DeckListDetail} />
       <SettingsStack.Screen name="AddCard" component={AddCard} />
       <SettingsStack.Screen name="QuezScreen" component={QuezScreen} />
+      <SettingsStack.Screen name="AnswerScreen" component={AnswerScreen} />
     </SettingsStack.Navigator>
   );
 }
@@ -100,7 +101,7 @@ export default function App() {
             },
           }}
         />
-        <Tab.Screen name="Settings" component={SettingsStackScreen} />
+        <Tab.Screen name="AddDeck" component={SettingsStackScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

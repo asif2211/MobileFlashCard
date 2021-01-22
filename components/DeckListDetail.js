@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet,TouchableOpacity } from "react-native";
 import CenterText from "./CenterText";
 import { connect } from "react-redux";
-import { gray } from "../utils/color";
+import { gray,lightPurp } from "../utils/color";
 import TextButton from "./TextButton";
 import Heading from "./Heading";
 const AppButton = ({ onPress, title }) => (
@@ -30,7 +30,7 @@ class DeckListDetail extends Component {
             <TextButton onPress={() =>
                 navigation.navigate("QuezScreen", {
                   card:card
-                })} title="Start Quez"/>
+                })} title="Start Quez" style={{backgroundColor: lightPurp}}/>
             </View>
         ) }
 

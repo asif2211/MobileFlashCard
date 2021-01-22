@@ -21,27 +21,20 @@ class AddCard extends Component {
   state = {
     question: "",
     asnwer: "",
-    errorQ: "",
-    errorA :""
+    error: "",
   };
-  handleInputQuestion = (question) => {
+  handleInput = (input) => {
     this.setState(() => ({
-      question
-    }));
-  };
-  handleInputAnswer = (answer) => {
-    this.setState(() => ({
-      answer
+      input
     }));
   };
   handleSubmitBtn = () => {
     if(this.state.question ==="")
     {
       this.setState({
-        errorQ:'please fill All fileds'
+        error:'please fill All fileds'
       })
     }
-   
     else
     {
     const {question,answer} = this.state;
@@ -84,17 +77,16 @@ class AddCard extends Component {
           style={styles.input}
           value={this.state.question}
           placeholder="Add question"
-          onChangeText={this.handleInputQuestion}
+          onChangeText={(question) => this.setState({ question })}
         />
         <TextInput
           style={styles.input}
           value={this.state.answer}
           placeholder="Add answer"
-          onChangeText={this.handleInputAnswer}
+          onChangeText={(answer) => this.setState({ answer })}
         />
         <TextButton onPress={this.handleSubmitBtn} title="Add Deck"/>
-        <Text style={styles.error}>{this.state.errorQ}</Text>
-        <Text style={styles.error}>{this.state.errorA}</Text>
+        <Text style={styles.error}>{this.state.error}</Text>
       </KeyboardAvoidingView>
     );
   }

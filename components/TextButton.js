@@ -2,9 +2,9 @@ import React, { Children } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { white, purple, orange, lightPurp } from "../utils/color";
 
-export default function TextButton({ onPress, title }) {
+export default function TextButton({ onPress, title, style}) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
+    <TouchableOpacity onPress={onPress} style={[styles.appButtonContainer,style]}>
     <Text style={styles.appButtonText}>{title}</Text>
   </TouchableOpacity>
   );

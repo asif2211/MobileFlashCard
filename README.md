@@ -4,6 +4,7 @@ This is udaci mobile flash card react native application where user add question
 1. [react-native ] installed expo init 
 2. [react-redux](https://www.npmjs.com/package/react-redux) :  for generating and managing state model.
 3. [redux](https://www.npmjs.com/package/redux) :  for store based store management.  
+3. [navigation](https://reactnavigation.org/docs/getting-started/) : popular naigation used to navigate between  the screen by push and pop.  
 
 ## Usage
 

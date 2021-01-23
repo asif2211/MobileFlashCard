@@ -4,7 +4,7 @@ import { white, gray, lightPurp, purple, red, blue } from "../utils/color";
 import TextButton from "./TextButton";
 import Heading from "./Heading";
 
-import { clearLocalNotification,setLocalNotifications } from "../utils/helper";
+import { clearLocalNotification, setLocalNotifications } from "../utils/helper";
 
 class QuezScreen extends Component {
   constructor() {
@@ -22,6 +22,7 @@ class QuezScreen extends Component {
       displayQuestion: !state.displayQuestion,
     }));
   };
+
   getOptions = (userOption) => {
     let {
       correctAns,
@@ -29,20 +30,18 @@ class QuezScreen extends Component {
       currentcardindex,
       displayResult,
     } = this.state;
-
-    alert(userOption);
+    
     if (userOption) {
       correctAns++;
     } else {
       incorrectAns++;
     }
     // compare index then update results state
-    if (currentcardindex === this.props.route.params.card.cards.length-1) {
+    if (currentcardindex === this.props.route.params.card.cards.length - 1) {
       displayResult = true;
-      
-      clearLocalNotification()
+
+      clearLocalNotification();
       setLocalNotifications();
-     
     } else {
       currentcardindex++;
     }
@@ -53,39 +52,43 @@ class QuezScreen extends Component {
       displayResult,
     }));
   };
-  restartQuez=()=>{
+  restartQuez = () => {
     this.setState({
       correctAns: 0,
       incorrectAns: 0,
       currentcardindex: 0,
       displayResult: false,
       displayQuestion: true,
-    })
-  }
+    });
+  };
   render() {
     const {
       correctAns,
       incorrectAns,
       currentcardindex,
       displayQuestion,
-      displayResult
+      displayResult,
     } = this.state;
     const remainingquez =
-      (this.props.route.params.card.cards.length) -
-      ((correctAns + incorrectAns) + 1);
-    
+      this.props.route.params.card.cards.length -
+      (correctAns + incorrectAns + 1);
 
-    return !displayResult ?  (
+    return !displayResult ? (
       <View>
         <View style={styles.item}>
           <Text style={styles.deckitle}>
             {`${
               displayQuestion
-                ? this.props.route.params.card&&this.props.route.params.card.cards[currentcardindex].question
-                : this.props.route.params.card&&this.props.route.params.card.cards[currentcardindex].answer
+                ? this.props.route.params.card &&
+                  this.props.route.params.card.cards[currentcardindex].question
+                : this.props.route.params.card &&
+                  this.props.route.params.card.cards[currentcardindex].answer
             }`}
           </Text>
-          <TextButton title={displayQuestion? "See Answer":"See Question"} onPress={this.toggleQuestion} />
+          <TextButton
+            title={displayQuestion ? "See Answer" : "See Question"}
+            onPress={this.toggleQuestion}
+          />
         </View>
         <View>
           <Heading
@@ -94,14 +97,16 @@ class QuezScreen extends Component {
               color: purple,
               alignItems: "center",
               justifyContent: "center",
-              marginBottom:20
+              marginBottom: 20,
             }}
           >
-            {`Remaing Quez : ${remainingquez}`}
+            {`Remaining Quez : ${remainingquez === 0 ? 1 : remainingquez}`}
           </Heading>
         </View>
         <View>
-          <Heading style={{fontSize: 16,color:'#000'}}>What are you thinking about this Question?</Heading>
+          <Heading style={{ fontSize: 16, color: "#000" }}>
+            What are you thinking about this Question?
+          </Heading>
         </View>
         <View style={styles.selectionBtn}>
           <View style={styles.correct}>
@@ -118,18 +123,17 @@ class QuezScreen extends Component {
               title="Incorrect"
             />
           </View>
-        
         </View>
       </View>
-    ):<View style={styles.item}>
-      <Heading>
-        Result
-      </Heading>
-      <Heading>
-        {`${Math.round((correctAns*100)/(correctAns+incorrectAns))}%`}
-      </Heading>
-      <TextButton title="Restart Quez" onPress={this.restartQuez}/>
-    </View>;
+    ) : (
+      <View style={styles.item}>
+        <Heading>Result</Heading>
+        <Heading>
+          {`${Math.round((correctAns * 100) / (correctAns + incorrectAns))}%`}
+        </Heading>
+        <TextButton title="Restart Quez" onPress={this.restartQuez} />
+      </View>
+    );
   }
 }
 
@@ -137,13 +141,25 @@ export default QuezScreen;
 
 const styles = StyleSheet.create({
   item: {
-    marginVertical: 20,
-    padding: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 30,
     margin: 20,
     justifyContent: "center",
-    borderColor: "#ccc",
+    borderColor: white,
     borderWidth: 1,
     fontSize: 20,
+    width: 350,
+    backgroundColor: white,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 7,
+    },
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+
+    elevation: 14,
   },
   deckitle: {
     fontSize: 22,

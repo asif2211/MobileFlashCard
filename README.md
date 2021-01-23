@@ -16,6 +16,11 @@ This is udaci mobile flash card react native application where user add question
     - Since this project has been developed on Android plate form so Android Simulator will need to be configured on the computer.
 **Usage**
 
-- Mobile falsh card
+- Android,Mobile falsh card
 - This is udaci mobile flash card react native application where user add questions and each questions is display in duck list. Front part show quesitions and back site display answer. User can add questions and give the answers. Each user get results either he select correct or wrong answer 
 - `creat react native app , expo init`
+
+## To run this project locally, clone this repository and run the following commands:
+- `npm start`
+- `expo start`
+    - Since this project is React Native and iOS and/or Android Simulator will need to be configured on the computer.

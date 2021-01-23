@@ -1,4 +1,4 @@
-import {RECEIVE_DECKS,ADD_DECK,CREATE_CARD} from '../action';
+import {RECEIVE_DECKS,ADD_DECK,CREATE_CARD, REMOVE_DECK} from '../action';
 
 export default function decklist(state={} ,action)
 {
@@ -17,10 +17,11 @@ export default function decklist(state={} ,action)
                 ...state,
                 [id]:{
                     id:id,
-                    name:name,
+                    name:name,   
                     cards:[]
                 }
             }
+        
         case CREATE_CARD :
             const {deckId,question,answer} = action.cardInfo;
             

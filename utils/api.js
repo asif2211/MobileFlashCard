@@ -12,8 +12,8 @@ export const receiveDeckData = () => {
   });
 };
 
-export const storeDeckData = (deckvalue) => {
-  AsyncStorage.clear(deckvalue);
+export const storeDeckData = (deckvalue) => {                                     
+  // AsyncStorage.clear(deckvalue);
   if (deckvalue !== "") {
     const data = AsyncStorage.mergeItem(
       FLASHCARD_STORAGE_KEY,
@@ -24,8 +24,8 @@ export const storeDeckData = (deckvalue) => {
 };
 
 export const storeCard = (deckId, card) => {
-  AsyncStorage.clear(deckId);
-  AsyncStorage.clear(card);
+  // AsyncStorage.clear(deckId);
+  // AsyncStorage.clear(card);
   if (deckId && card) {
     return AsyncStorage.getItem(FLASHCARD_STORAGE_KEY).then((results) => {
       const existingData = JSON.parse(results);
@@ -37,7 +37,7 @@ export const storeCard = (deckId, card) => {
         ],
       };
       // update existing data with cards information
-      AsyncStorage.clear(card);
+      // AsyncStorage.clear(card);
       AsyncStorage.setItem(FLASHCARD_STORAGE_KEY, JSON.stringify(existingData));
     });
   }

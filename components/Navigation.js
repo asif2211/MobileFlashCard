@@ -9,48 +9,29 @@ import AnswerScreen from "./AnswerScreen";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
-import { purple } from "../utils/color";
+import { purple, lightPurp, blue } from "../utils/color";
 import QuezScreen from "./QuezScreen";
-
-function DetailsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Details!</Text>
-    </View>
-  );
-}
-
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
-      />
-    </View>
-  );
-}
-
-function SettingsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings screen</Text>
-      <Button
-        title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
-      />
-    </View>
-  );
-}
 
 const HomeStack = createStackNavigator();
 
 function HomeStackScreen() {
   return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Home" component={DeckList} />
-      <HomeStack.Screen name="Details" component={DeckListDetail} />
+    <HomeStack.Navigator
+      screenOptions={{
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: blue },
+      }}
+    >
+      <HomeStack.Screen
+        name="Home"
+        component={DeckList}
+        options={{ title: "Deck List", headerTitleAlign: "center" }}
+      />
+      <HomeStack.Screen
+        name="Details"
+        component={DeckListDetail}
+        options={{ title: "Deck Details", headerTitleAlign: "center" }}
+      />
     </HomeStack.Navigator>
   );
 }
@@ -59,12 +40,32 @@ const SettingsStack = createStackNavigator();
 
 function SettingsStackScreen() {
   return (
-    <SettingsStack.Navigator>
-      <SettingsStack.Screen name="AddDeck" component={AddDeck} />
-      <SettingsStack.Screen name="DeckListDetail" component={DeckListDetail} />
-      <SettingsStack.Screen name="AddCard" component={AddCard} />
-      <SettingsStack.Screen name="QuezScreen" component={QuezScreen} />
-      <SettingsStack.Screen name="AnswerScreen" component={AnswerScreen} />
+    <SettingsStack.Navigator
+      screenOptions={{
+        headerTintColor: "white",
+        headerStyle: { backgroundColor: lightPurp },
+      }}
+    >
+      <SettingsStack.Screen
+        name="AddDeck"
+        component={AddDeck}
+        options={{ title: "Add Deck", headerTitleAlign: "center" }}
+      />
+      <SettingsStack.Screen
+        name="DeckListDetail"
+        component={DeckListDetail}
+        options={{ title: "Deck Details", headerTitleAlign: "center" }}
+      />
+      <SettingsStack.Screen
+        name="AddCard"
+        component={AddCard}
+        options={{ title: "Add Card", headerTitleAlign: "center" }}
+      />
+      <SettingsStack.Screen
+        name="QuezScreen"
+        component={QuezScreen}
+        options={{ title: "Quez Screen", headerTitleAlign: "center" }}
+      />
     </SettingsStack.Navigator>
   );
 }

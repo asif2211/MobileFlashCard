@@ -2,23 +2,26 @@ import React, { Children } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { white, purple, orange, lightPurp } from "../utils/color";
 
-export default function TextButton({ onPress, title, style}) {
+export default function TextButton({ onPress, title, style, disable }) {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.appButtonContainer,style]}>
-    <Text style={styles.appButtonText}>{title}</Text>
-  </TouchableOpacity>
+    <TouchableOpacity
+      onPress={onPress}
+      style={[styles.appButtonContainer, style]}
+      disabled={disable}
+    >
+      <Text style={styles.appButtonText}>{title}</Text>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   appButtonContainer: {
-    
     borderRadius: 5,
     backgroundColor: purple,
     margin: 10,
     padding: 10,
     width: 300,
-    justifyContent:'center',
+    justifyContent: "center",
   },
   appButtonText: {
     fontSize: 18,
@@ -26,6 +29,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
     textTransform: "uppercase",
-    
-  }
+  },
 });

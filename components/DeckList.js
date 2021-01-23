@@ -10,7 +10,7 @@ import { receiveDeckData } from "../utils/api";
 import { receiveDeck } from "../action";
 import { connect, Provider } from "react-redux";
 import { white, red, gray } from "../utils/color";
-import DeckListView from "../components/DeckListView";
+import DeckListView from "./DeckListView";
 import TextButton from "./TextButton";
 import CenterText from "./CenterText";
 import Heading from "./Heading";
@@ -31,7 +31,6 @@ class DeckList extends Component {
   }
 
   render() {
-   
     // alert(JSON.stringify(Object.values(this.props.decklist)))
     if (!this.state.ready) {
       return (
@@ -40,8 +39,7 @@ class DeckList extends Component {
         </View>
       );
     } else {
-      // alert(this.props.navigation.getParam&&this.props.navigation.getParam('name'))
-      alert(Object.values(this.props.decklist).length);
+      // alert(Object.values(this.props.decklist).length);
       return Object.values(this.props.decklist).length > 0 ? (
         <View style={styles.Maincontainer}>
           <FlatList
@@ -50,17 +48,21 @@ class DeckList extends Component {
               <DeckListView
                 id={item.id}
                 name={item.name}
-                navigation={() => this.props.navigation.navigate("DeckListDetail",{deckId:item.id,name:item.name})}
-                
-                  countCard={item.cards}
+                navigation={() =>
+                  this.props.navigation.navigate("DeckListDetail", {
+                    deckId: item.id,
+                    name: item.name,
+                  })
+                }
+                countCard={item.cards}
               />
             )}
             keyExtractor={(item, index) => item.id}
           />
-            
-            </View>
-       
-      ) : (<Heading>Decks are empty yet! Pease Add Deck</Heading>)
+        </View>
+      ) : (
+        <Heading>Decks are empty yet! Pease Add Deck</Heading>
+      );
     }
   }
 }
@@ -75,20 +77,16 @@ const mapStateToProps = (decklist) => {
 export default connect(mapStateToProps)(DeckList);
 
 const styles = StyleSheet.create({
-  Maincontainer:{
+  Maincontainer: {
     flex: 1,
     backgroundColor: white,
     alignItems: "center",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
 
   container: {
-    
     flex: 1,
     backgroundColor: white,
-    alignItems: "center"
-    
-
+    alignItems: "center",
   },
-  
 });

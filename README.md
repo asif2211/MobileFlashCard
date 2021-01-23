@@ -1,4 +1,4 @@
-# Mobile flash card
+# Mobile flash card Android Mobile Application.
 This is udaci mobile flash card react native application where user add questions and each questions is display in duck list. Front part show quesitions and back site display answer. User can add questions and give the answers. Each user get results either he select correct or wrong answer 
 **What's Being Used?**
 1. [react-native ] installed expo init 

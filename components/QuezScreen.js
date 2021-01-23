@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Button } from "react-native";
 import { white, gray, lightPurp, purple, red, blue } from "../utils/color";
 import TextButton from "./TextButton";
 import Heading from "./Heading";
-import CardDesign from "./CardDesign";
+
+import { clearLocalNotification,setLocalNotifications } from "../utils/helper";
 
 class QuezScreen extends Component {
   constructor() {
@@ -16,38 +17,76 @@ class QuezScreen extends Component {
       displayQuestion: true,
     };
   }
- componentDidUpdate(userOption){
-    let {correctAns,incorrectAns,currentcardindex,displayResult} = this.state;
-    if (
-      currentcardindex ===
-      this.props.route.params.card.cards.length - 1
-    ) {
-      displayResult = true;
-    } else {
-      currentcardindex++;
-    }
-
-    if(userOption){
-      correctAns++
-    }
-    else {
-      incorrectAns++
-    }
-    this.setState(state=>({
+  toggleQuestion = () => {
+    this.setState((state) => ({
+      displayQuestion: !state.displayQuestion,
+    }));
+  };
+  getOptions = (userOption) => {
+    let {
       correctAns,
       incorrectAns,
       currentcardindex,
-      displayResult
+      displayResult,
+    } = this.state;
+
+    alert(userOption);
+    if (userOption) {
+      correctAns++;
+    } else {
+      incorrectAns++;
+    }
+    // compare index then update results state
+    if (currentcardindex === this.props.route.params.card.cards.length-1) {
+      displayResult = true;
+      
+      clearLocalNotification()
+      setLocalNotifications();
+     
+    } else {
+      currentcardindex++;
+    }
+    this.setState((state) => ({
+      correctAns,
+      incorrectAns,
+      currentcardindex,
+      displayResult,
     }));
   };
+  restartQuez=()=>{
+    this.setState({
+      correctAns: 0,
+      incorrectAns: 0,
+      currentcardindex: 0,
+      displayResult: false,
+      displayQuestion: true,
+    })
+  }
   render() {
-    const { correctAns, incorrectAns, currentcardindex,displayQuestion } = this.state;
+    const {
+      correctAns,
+      incorrectAns,
+      currentcardindex,
+      displayQuestion,
+      displayResult
+    } = this.state;
     const remainingquez =
-      this.props.route.params.card.cards.length -
-      (correctAns + incorrectAns + 1);
-    return (
+      (this.props.route.params.card.cards.length) -
+      ((correctAns + incorrectAns) + 1);
+    
+
+    return !displayResult ?  (
       <View>
-       <CardDesign cardinfo={this.props.route.params.card.cards[currentcardindex]} displayQuestion={displayQuestion} onPress={()=>this.props.navigation.navigate('AnswerScreen',{answer:this.props.route.params.card.cards[currentcardindex].answer})}/>
+        <View style={styles.item}>
+          <Text style={styles.deckitle}>
+            {`${
+              displayQuestion
+                ? this.props.route.params.card&&this.props.route.params.card.cards[currentcardindex].question
+                : this.props.route.params.card&&this.props.route.params.card.cards[currentcardindex].answer
+            }`}
+          </Text>
+          <TextButton title={displayQuestion? "See Answer":"See Question"} onPress={this.toggleQuestion} />
+        </View>
         <View>
           <Heading
             style={{
@@ -55,29 +94,42 @@ class QuezScreen extends Component {
               color: purple,
               alignItems: "center",
               justifyContent: "center",
+              marginBottom:20
             }}
           >
             {`Remaing Quez : ${remainingquez}`}
           </Heading>
         </View>
+        <View>
+          <Heading style={{fontSize: 16,color:'#000'}}>What are you thinking about this Question?</Heading>
+        </View>
         <View style={styles.selectionBtn}>
           <View style={styles.correct}>
             <TextButton
-              onPress={this.componentDidUpdate(true)}
+              onPress={() => this.getOptions(true)}
               title="Correct"
               style={{ width: 150, height: 50, backgroundColor: blue }}
             />
           </View>
           <View style={styles.correct}>
             <TextButton
-              onPress={this.componentDidUpdate(false)}
+              onPress={() => this.getOptions(false)}
               style={{ width: 150, height: 50, backgroundColor: red }}
               title="Incorrect"
             />
           </View>
+        
         </View>
       </View>
-    );
+    ):<View style={styles.item}>
+      <Heading>
+        Result
+      </Heading>
+      <Heading>
+        {`${Math.round((correctAns*100)/(correctAns+incorrectAns))}%`}
+      </Heading>
+      <TextButton title="Restart Quez" onPress={this.restartQuez}/>
+    </View>;
   }
 }
 
